@@ -101,7 +101,7 @@ Counter-evidence 结果：
 3. 所有 `accepted` 结论的 `completeness` 必须为 `complete`。
 4. 所有 `tentative/unresolved` 必须单独列出，不得混入已确认问题。
 5. quick check 不得冒充 deep check；结构 smoke check 不能产生 deep quality score。
-6. **封顶规则生效时**（触发条件见 `check-guide.md` Step 9 封顶规则表），报告顶部必须标注 "⚠️ 封顶触发: [第 N 条] - [原因一句话]"；加权总分 clamp 至 `≤ 6.0/10`；所有 `accepted` 结论自动降为 `tentative`，不得作为强结论发布。封顶是评分层规则，不影响 P0/P1/P2 行动项生成。
+6. **封顶规则生效时**（触发条件见 `check-guide.md` Step 10 封顶规则表），报告顶部必须标注 "⚠️ 封顶触发: [第 N 条] - [原因一句话]"；加权总分 clamp 至 `≤ 6.0/10`；所有 `accepted` 结论自动降为 `tentative`，不得作为强结论发布。封顶是评分层规则，不影响 P0/P1/P2 行动项生成。
 
 ## 评估方法
 

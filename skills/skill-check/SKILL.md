@@ -85,6 +85,7 @@ tools:
 
 - 快速检查: 3 步（结构扫描 → 模块存在性 → 快速报告），每步有 ✅ Checkpoint
 - 深度检查: 先 quick check 识别问题区域，再**按需加载**对应 reference
+- 安全扫描: 运行 validate-security.py 进行 Critical 级静态模式检测，深度检查时加载 security-guide.md
 - 评分: 模块(55%) + 反模式(20%) + 完整性(15%) + Decision Gate(10%)
 - 上下文保护: quick check 不加载完整标准；deep check 才加载 quality-standards.md 与 decision-gates.md
 - **默认用深度检查**，仅在用户明确说"快速看一下"时才用快速模式
@@ -93,7 +94,7 @@ tools:
 
 ## 依赖链
 
-检查清单 → 评估步骤(不自创标准) → Decision Gate 检查 → 报告引用评分(不重估) → 行动项总数 == 各步问题数之和
+检查清单 → 评估步骤(不自创标准) → 安全扫描(validate-security.py) → Decision Gate 检查 → 报告引用评分(不重估) → 行动项总数 == 各步问题数之和(含安全问题)
 
 ---
 

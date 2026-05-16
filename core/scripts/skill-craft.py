@@ -55,17 +55,27 @@ def check_prerequisites(mode, path):
 
 
 def run_validation(path):
-    """Run validate-metadata.py and validate-structure.py on the target path."""
+    """Run validate-metadata.py, validate-structure.py, and validate-security.py on the target path."""
     results = []
-    for script in ["validate-metadata.py", "validate-structure.py"]:
+    scripts = ["validate-metadata.py", "validate-structure.py", "validate-security.py"]
+    for script in scripts:
         script_path = os.path.join(SCRIPTS_DIR, script)
         if not os.path.isfile(script_path):
-            results.append({
-                "script": script,
-                "stdout": "",
-                "stderr": f"[编排] 脚本未找到: {script_path}",
-                "returncode": -1,
-            })
+            # Graceful degradation for security script, hard fail for others
+            if script == "validate-security.py":
+                results.append({
+                    "script": script,
+                    "stdout": "⚠️ 降级: validate-security.py 未找到，安全扫描跳过",
+                    "stderr": "",
+                    "returncode": 0,
+                })
+            else:
+                results.append({
+                    "script": script,
+                    "stdout": "",
+                    "stderr": f"[编排] 脚本未找到: {script_path}",
+                    "returncode": -1,
+                })
             continue
         result = subprocess.run(
             [sys.executable, script_path, "--path", path],

@@ -1,6 +1,6 @@
 # check 模式执行流程
 
-> 用途：check 模式时加载。支持快速检查（3 步）和深度检查（9 步）。
+> 用途：check 模式时加载。支持快速检查（3 步）和深度检查（10 步）。
 
 ---
 
@@ -40,7 +40,7 @@
 
 ---
 
-## 深度检查（9 步）
+## 深度检查（10 步）
 
 **Step 1: 结构扫描**（同快速 Step 1）
 
@@ -105,7 +105,19 @@
 
 ✅ Checkpoint: `Step 6 完成: 实战检查 X/N 项通过`
 
-**Step 7: 发现性验证（Discovery Validation）**
+**Step 7: 安全扫描**
+- **Step 7a**: 运行 validate-security.py 获取静态扫描结果（`python3 {checker-root}/scripts/validate-security.py --path {目标路径}`）
+- **Step 7b**: 对 Critical/High 级发现加载 `security-guide.md` 进行语义分析
+- **Step 7c**: 检查上下文豁免（功能声明匹配 → 降级为建议）
+- **Step 7d**: 应用硬上限规则（未豁免的 Critical → 总分钳位，见 quality-standards.md #6-#11）
+
+失败降级:
+- validate-security.py 不存在 → 输出 "⚠️ 降级: validate-security.py 未找到，安全扫描跳过"，继续后续步骤
+- security-guide.md 缺失 → 标注"⚠️ 降级: 缺少 security-guide.md，跳过语义分析"，仅使用静态扫描结果
+
+✅ Checkpoint: `Step 7 完成: 安全扫描 {N} 个发现 (Critical: X, High: Y), 豁免: Z 项, 硬上限: {触发/未触发}`
+
+**Step 8: 发现性验证（Discovery Validation）**
 - 基于目标 Skill 的 frontmatter description + 触发条件，生成 2 组测试 prompt：
   - **应触发组**（3 条）：模拟真实用户会发出的、应当激活该 Skill 的 prompt
   - **不应触发组**（3 条）：模拟容易误触发的、相似但不属于该 Skill 范围的 prompt
@@ -130,9 +142,9 @@
 - 目标 Skill 无 frontmatter description → 直接标记 Fail + P0 行动项"缺少 description"
 - description 过短（<50 字符）→ 标记 Partial + P1 行动项"description 信息不足"
 
-✅ Checkpoint: `Step 7 完成: 发现性验证 X/6 正确, 评级 {Pass/Partial/Fail}`
+✅ Checkpoint: `Step 8 完成: 发现性验证 X/6 正确, 评级 {Pass/Partial/Fail}`
 
-**Step 8: Decision Gate 评估**
+**Step 9: Decision Gate 评估**
 - 按 `decision-gates.md` 检查目标 Skill 是否把 signal / evidence / counter-evidence / decision 分开
 - 抽样 3-5 类目标 Skill 可能输出的强结论，识别 claim_type、required evidence、counter-evidence 与 completeness ceiling
 - 每类: Pass/Partial/Fail + 证据引用 + 是否存在 signal-only decision 或 unchecked counter-evidence 风险
@@ -153,9 +165,9 @@
 - **N/A 场景**（Skill 不输出任何强结论）: DG 权重回冲给模块分（模块权重 55% → 65%）；报告注明 "DG=N/A, 权重回冲至模块"
 - **counter-evidence 未检查**: 该类自动降为 Partial（不得评 Pass）
 
-✅ Checkpoint: `Step 8 完成: Decision Gate 评估 X/Y 类, signal-only 风险 A 项, counter-evidence 缺失 B 项, DG 加权 Z/10%`
+✅ Checkpoint: `Step 9 完成: Decision Gate 评估 X/Y 类, signal-only 风险 A 项, counter-evidence 缺失 B 项, DG 加权 Z/10%`
 
-**Step 9: 综合报告**
+**Step 10: 综合报告**
 - 按 `core/references/report-template.md` 格式生成完整报告
 - 计算加权总分: 模块(55%) + 反模式(20%) + 完整性(15%) + Decision Gate(10%)
 - 实战检查结果作为附加评分
@@ -166,10 +178,10 @@
 | # | 触发条件 | 证据来源 |
 |---|---------|---------|
 | 1 | 触发条件互斥冲突（同一 input 同时命中多条路径且无优先级定义） | Step 3 模块 1 发现 |
-| 2 | Decision Gate Fail 项 ≥ 2 | Step 8 评估结果 |
+| 2 | Decision Gate Fail 项 ≥ 2 | Step 9 评估结果 |
 | 3 | 核心 references/ 或 scripts/ 断链（frontmatter tools 或 SKILL.md 正文引用但路径不存在/为空） | Step 1 smoke check + Step 2 加载结果 |
 | 4 | validate-metadata.py 或 validate-structure.py FAIL | Step 1 脚本 exit code |
-| 5 | quick check 的结果冒充 deep check（实际步数 <9 但输出 deep quality score） | 步数计数 |
+| 5 | quick check 的结果冒充 deep check（实际步数 <10 但输出 deep quality score） | 步数计数 |
 
 封顶生效后:
 - 加权总分 = `min(原始加权总分, 6.0)`
@@ -188,7 +200,7 @@
 - **历史对比**: 读取审计历史文件（路径见 `SKILL.md` 审计历史节），查找同一 Skill（按 path 匹配）的历史记录。有历史时在报告顶部输出趋势行: `评分趋势: 5.2 (2026-03-10) → 7.2 (本次) ↑+2.0`。无历史则不提及。
 
 交叉验证:
-- [ ] 行动项总数 == Steps 3+4+5+6+7+8 发现的问题数之和
+- [ ] 行动项总数 == Steps 3+4+5+6+7+8+9 发现的问题数之和
 - [ ] 所有行动项都有 file:location 引用
 
 交付前检查（自动输出）:
@@ -198,7 +210,7 @@
 
 **写入历史**: 报告输出后，先展示待写入记录；仅在用户确认后追加到审计历史文件。
 
-✅ Checkpoint: `深度检查完成: 总分 N/10 (封顶 {是/否, 触发 #X / —}), 发现性 {Pass/Partial/Fail}, Decision Gate {Pass/Partial/Fail/N/A}, 实战检查 X/N, 产物契约 {OBSERVED/MISSING/N/A}×3, 可移植性 {PASS/WARN/FAIL}×4, P0: X, P1: Y, P2: Z 项`
+✅ Checkpoint: `深度检查完成: 总分 N/10 (封顶 {是/否, 触发 #X / —}), 安全扫描 {Pass/Critical/High/Medium/Low} ({X} 发现, 豁免 {Y}), 发现性 {Pass/Partial/Fail}, Decision Gate {Pass/Partial/Fail/N/A}, 实战检查 X/N, 产物契约 {OBSERVED/MISSING/N/A}×3, 可移植性 {PASS/WARN/FAIL}×4, P0: X, P1: Y, P2: Z 项`
 
 
 ---
