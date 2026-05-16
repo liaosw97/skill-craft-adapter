@@ -1,0 +1,23 @@
+{
+  "name": "skill-craft-adapter",
+  "owner": {
+    "name": "AiTools"
+  },
+  "metadata": {
+    "description": "Claude Code Skill quality evaluation plugin — 8-module weighted scoring framework",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "skill-craft-adapter",
+      "source": "./",
+      "description": "Evaluates, fixes, creates, and audits Claude Code Skills using weighted 8-module quality framework",
+      "version": "1.0.0",
+      "author": {
+        "name": "AiTools"
+      },
+      "license": "MIT",
+      "keywords": ["skill", "quality", "evaluation", "audit", "claude-code"]
+    }
+  ]
+}

@@ -6,26 +6,41 @@ Claude Code Skill 质量评估插件——基于加权评分框架（8 模块检
 
 ## 安装
 
-### 方式一：GitHub 托管安装（推荐）
+### 方式一：Marketplace 安装（推荐）
 
 ```bash
-# 在 Claude Code 中执行（具体语法以官方文档为准）
-claude plugin add https://github.com/3stoneBrother/skill-craft
+# 1. 添加 Marketplace 源（在 Claude Code 中执行）
+/plugin marketplace add liaosw97/skill-craft-adapter
+
+# 2. 安装插件
+/plugin install skill-craft-adapter@skill-craft-adapter
 ```
 
 安装后 5 个命令自动注册，无需额外配置。
 
-### 方式二：手动安装
+### 方式二：CLI 安装
+
+```bash
+# 通过 Claude Code CLI 安装（全局）
+claude plugin install skill-craft-adapter@skill-craft-adapter --scope user
+
+# 项目级安装
+claude plugin install skill-craft-adapter@skill-craft-adapter --scope project
+```
+
+`--scope` 可选值：`user`（全局，默认）、`project`（项目级）、`local`（本地级）。
+
+### 方式三：手动安装
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/3stoneBrother/skill-craft.git
+git clone https://github.com/liaosw97/skill-craft-adapter.git
 
-# 2. 将 skill-craft-adapter/ 复制到 Claude Code 插件目录
-cp -r skill-craft-adapter/ ~/.claude/plugins/skill-craft-adapter/
+# 2. 使用 --plugin-dir 快速加载（推荐）
+claude --plugin-dir ./skill-craft-adapter
 ```
 
-重启 Claude Code 后命令自动生效。
+也可以将目录复制到 `~/.claude/plugins/skill-craft-adapter/`，重启 Claude Code 后生效。
 
 ## 使用说明
 
@@ -107,7 +122,7 @@ python core/scripts/validate-structure.py --path /path/to/skill
 
 ## 致谢
 
-本插件改编自 [skill-craft](https://github.com/3stoneBrother/skill-craft) 项目，感谢原作者的贡献。
+本插件改编自 [skill-craft](https://github.com/3stoneBrother/skill-craft) 原始项目，感谢原作者的贡献。
 
 ## License
 
