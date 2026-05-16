@@ -20,12 +20,12 @@
 ✅ Checkpoint: `Step 1 完成: 发现 N 个文件, metadata {PASS/FAIL}, structure {PASS/FAIL}, {X} 行`
 
 **Step 2: 加载检查清单 + 修复约束 + 实战标准**
-- Read `references/check-guide.md (质量框架部分)`
-- Read `references/quality-standards.md (反模式部分)`
-- Read `references/quality-standards.md (完整性部分)`
-- Read `references/decision-gates.md`
-- Read `references/practical-best-practices.md`
-- Read `references/fix-guide.md (修复约束部分)`
+- Read `core/references/check-guide.md (质量框架部分)`
+- Read `core/references/quality-standards.md (反模式部分)`
+- Read `core/references/quality-standards.md (完整性部分)`
+- Read `core/references/decision-gates.md`
+- Read `core/references/practical-best-practices.md`
+- Read `core/references/fix-guide.md (修复约束部分)`
 
 失败降级:
 - 某文件缺失 → 标注"⚠️ 降级"，继续可用维度

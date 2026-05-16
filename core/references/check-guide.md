@@ -45,11 +45,11 @@
 **Step 1: 结构扫描**（同快速 Step 1）
 
 **Step 2: 加载检查清单**
-- Read `references/check-guide.md (质量框架部分)`
-- Read `references/quality-standards.md (反模式部分)`
-- Read `references/quality-standards.md (完整性部分)`
-- Read `references/decision-gates.md`
-- Read `references/practical-best-practices.md`
+- Read `core/references/check-guide.md (质量框架部分)`
+- Read `core/references/quality-standards.md (反模式部分)`
+- Read `core/references/quality-standards.md (完整性部分)`
+- Read `core/references/decision-gates.md`
+- Read `core/references/practical-best-practices.md`
 
 失败降级:
 - 某个检查清单文件缺失 → 标注"⚠️ 降级: 缺少 {文件名}，该维度无法评估"，继续其他维度
@@ -156,7 +156,7 @@
 ✅ Checkpoint: `Step 8 完成: Decision Gate 评估 X/Y 类, signal-only 风险 A 项, counter-evidence 缺失 B 项, DG 加权 Z/10%`
 
 **Step 9: 综合报告**
-- 按 `references/report-template.md` 格式生成完整报告
+- 按 `core/references/report-template.md` 格式生成完整报告
 - 计算加权总分: 模块(55%) + 反模式(20%) + 完整性(15%) + Decision Gate(10%)
 - 实战检查结果作为附加评分
 - 生成 P0/P1/P2 行动项

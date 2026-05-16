@@ -16,7 +16,7 @@
 ✅ Checkpoint: `Step 1 完成: 发现 N 个 Skill, M 个系统级文档`
 
 **Step 2: 加载审计标准**
-- Read `references/audit-guide.md (审计标准部分)`
+- Read `core/references/audit-guide.md (审计标准部分)`
 
 失败降级:
 - 文件不可读 → 使用内置 9 项必查清单（路由边界、角色分工、真值源、引用链、承诺实现、旧口径、验证闭环、Decision Gate、外围文档）

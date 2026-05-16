@@ -16,7 +16,7 @@
 ✅ Checkpoint: `Step 1 完成: 领域={X}, 输入={Y}, 输出={Z}, 路径={P}`
 
 **Step 2: 加载生成指南 + 规模判断**
-- Read `references/create-guide.md (生成指南部分)`
+- Read `core/references/create-guide.md (生成指南部分)`
 - 根据预估步骤数判断复杂度: 轻量(1-2步) / 中等(3-5步) / 重型(6+步)
 - 确定必需模块列表
 
@@ -26,10 +26,10 @@
 ✅ Checkpoint: `Step 2 完成: 复杂度={X}, 必需模块={列表}`
 
 **Step 3: 生成 Skill 文件**
-- 基于 `references/skill-scaffold.md` 骨架 + `本文件下方"生成指南"部分` 模板
+- 基于 `core/references/skill-scaffold.md` 骨架 + `本文件下方"生成指南"部分` 模板
 - 创建目录结构: SKILL.md + references/ + scripts/（按需）
 - 按规模适配填充必需模块，省略的模块不保留占位
-- 如果 Skill 会输出判断、建议、评分、改动或风险结论，必须按 `references/decision-gates.md` 添加领域化 Decision Gate；不输出强结论时显式标 N/A
+- 如果 Skill 会输出判断、建议、评分、改动或风险结论，必须按 `core/references/decision-gates.md` 添加领域化 Decision Gate；不输出强结论时显式标 N/A
 
 完成性要求:
 - 必需模块全部填充（非占位）
@@ -56,8 +56,8 @@
 ✅ Checkpoint: `Step 4 完成: 自检 X/Y 项通过`
 
 **Step 5: 自动化验证**
-- 运行 `python3 scripts/validate-metadata.py --path {skill-dir}` 验证 name + description
-- 运行 `python3 scripts/validate-structure.py --path {skill-dir}` 验证目录结构 + 8 模块存在性
+- 运行 `python3 {checker-root}/scripts/validate-metadata.py --path {skill-dir}` 验证 name + description
+- 运行 `python3 {checker-root}/scripts/validate-structure.py --path {skill-dir}` 验证目录结构 + 8 模块存在性
 - 两个脚本均 PASS → 继续；有 ERROR → 修正后重跑
 
 失败降级:
