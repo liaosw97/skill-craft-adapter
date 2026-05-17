@@ -191,6 +191,62 @@ for mode, expected_cmds in CLI_RECS.items():
               f"CLI RECOMMENDATIONS[{mode}] 中未找到 {cmd}")
 
 # ============================================================
+# T6.7: 跨模式功能覆盖矩阵 [spec:test-coverage#SC-01~SC-06]
+# ============================================================
+print()
+print("=" * 60)
+print("T6.7: 跨模式功能覆盖矩阵")
+print("=" * 60)
+
+GUIDES_DIR = os.path.join(BASE_DIR, "core", "references")
+GUIDES = {
+    "check": os.path.join(GUIDES_DIR, "check-guide.md"),
+    "fix": os.path.join(GUIDES_DIR, "fix-guide.md"),
+    "audit": os.path.join(GUIDES_DIR, "audit-guide.md"),
+    "create": os.path.join(GUIDES_DIR, "create-guide.md"),
+}
+
+# 功能 1: 安全扫描 (validate-security) — 4 个模式均应覆盖 [spec:test-coverage#SC-02]
+for mode, path in GUIDES.items():
+    content = read_file(path)
+    check(f"[T6.7/SC-02] {mode} guide 含 validate-security",
+          "validate-security" in content)
+
+# 功能 2+3: 结构验证 + 元数据验证 [spec:test-coverage#SC-03]
+# audit 模式豁免: 不涉及结构/元数据验证，这是 check/fix/create 的职责
+for mode, path in GUIDES.items():
+    if mode == "audit":
+        # audit 模式不涉及结构/元数据验证，这是 check/fix/create 的职责
+        continue
+    content = read_file(path)
+    check(f"[T6.7/SC-03] {mode} guide 含 validate-structure",
+          "validate-structure" in content)
+    check(f"[T6.7/SC-03] {mode} guide 含 validate-metadata",
+          "validate-metadata" in content)
+
+# 功能 4: 审计历史 [spec:test-coverage#SC-04]
+# create 模式豁免: 不需要审计历史因为不涉及评估分数
+for mode in EXPECTED_SKILLS:
+    content = read_skill(mode)
+    if mode == "skill-create":
+        # create 模式不需要审计历史因为不涉及评估分数
+        continue
+    check(f"[T6.7/SC-04] {mode} SKILL.md 含审计历史",
+          "审计历史" in content or "audit-history" in content)
+
+# 功能 5: Decision Gate [spec:test-coverage#SC-05]
+for mode in EXPECTED_SKILLS:
+    content = read_skill(mode)
+    check(f"[T6.7/SC-05] {mode} SKILL.md 含 Decision Gate",
+          "Decision Gate" in content)
+
+# 功能 6: 推荐链 (完成后推荐) [spec:test-coverage#SC-06]
+for mode in EXPECTED_SKILLS:
+    content = read_skill(mode)
+    check(f"[T6.7/SC-06] {mode} SKILL.md 含完成后推荐",
+          "完成后推荐" in content)
+
+# ============================================================
 # 汇总
 # ============================================================
 print()

@@ -10,6 +10,7 @@
 - 执行验证脚本（并行，脚本路径使用 `core/scripts/`，不是相对目标 Skill）：
   - `python3 core/scripts/validate-metadata.py --path {目标路径}` → 元数据规范检查
   - `python3 core/scripts/validate-structure.py --path {目标路径}` → 结构 smoke check：模块存在性 + 行数预算 + 目录结构
+  - `python3 core/scripts/validate-security.py --path {目标路径}` → Critical 级安全模式检测
 - 脚本 stderr 中的错误/警告直接纳入问题清单
 - 脚本不可用 → 降级为手动检查，标注 "⚠️ 降级: 验证脚本不可用"
 

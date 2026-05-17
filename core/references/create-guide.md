@@ -58,7 +58,8 @@
 **Step 5: 自动化验证**
 - 运行 `python3 core/scripts/validate-metadata.py --path {skill-dir}` 验证 name + description
 - 运行 `python3 core/scripts/validate-structure.py --path {skill-dir}` 验证目录结构 + 8 模块存在性
-- 两个脚本均 PASS → 继续；有 ERROR → 修正后重跑
+- 运行 `python3 core/scripts/validate-security.py --path {skill-dir}` 验证无 Critical 级安全模式
+- 三个脚本均 PASS → 继续；有 ERROR → 修正后重跑
 
 失败降级:
 - 脚本不可用 → 手动检查 name(kebab-case) + description(≥50字符) + 目录结构
