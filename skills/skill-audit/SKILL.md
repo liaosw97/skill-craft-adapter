@@ -24,7 +24,9 @@ tools:
 ## 前置条件
 
 - 路径不存在 → 输出"路径不存在：`<path>`"，停止
-- 路径存在但 <2 个 SKILL.md → 输出"目录下仅 N 个 Skill，审计需要 ≥2 个。请先运行 /skill-create 创建更多 Skill"，停止
+- 路径存在但 <2 个 SKILL.md → 按数量输出引导：
+  - 0 个 SKILL.md → 输出"目录下无 Skill，审计需要 ≥2 个。请先运行 /skill-create 创建 Skill"，停止
+  - 1 个 SKILL.md → 输出"目录下仅 1 个 Skill，审计需要 ≥2 个。如需评估该 Skill 请运行 /skill-check；如需创建更多 Skill 请运行 /skill-create"，停止
 - ≥2 个 SKILL.md → 通过，继续执行
 
 ---
@@ -39,6 +41,7 @@ tools:
 **不触发**:
 - 讨论 Skill 设计概念但无具体目标
 - 单个 Skill 评估（→ /skill-check）
+- 单个 Skill 修复（→ /skill-fix）
 
 **歧义处理**: 询问 "您是要 audit（多 Skill 系统审计）、check（单个评估）、fix（评估+修复）、还是 create（从零创建）？"
 

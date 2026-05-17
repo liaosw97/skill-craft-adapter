@@ -8,10 +8,10 @@
 
 **Step 1: 结构扫描 + 自动化 smoke check**
 - Glob 目标目录，列出所有文件
-- 先定位当前 `skill-craft` 的根目录（本 `SKILL.md` 所在目录，记为 `{checker-root}`）
-- 执行当前 Skill 自带验证脚本（并行，脚本路径相对 `{checker-root}`，不是相对目标 Skill）：
-  - `python3 {checker-root}/scripts/validate-metadata.py --path {目标路径}` → 检查 name/description 规范
-  - `python3 {checker-root}/scripts/validate-structure.py --path {目标路径}` → 结构 smoke check：模块存在性 + 行数预算 + 目录结构
+- 定位 adapter 共享脚本目录 `core/scripts/`（相对于 adapter 根目录，与 SKILL.md 中 `core/references/` 同级）
+- 执行验证脚本（并行，脚本路径使用 `core/scripts/`，不是相对目标 Skill）：
+  - `python3 core/scripts/validate-metadata.py --path {目标路径}` → 检查 name/description 规范
+  - `python3 core/scripts/validate-structure.py --path {目标路径}` → 结构 smoke check：模块存在性 + 行数预算 + 目录结构
 - 脚本输出直接纳入报告：exit 0 = 通过，exit 1 = stderr 中的错误/警告作为发现项
 - 如脚本不存在或执行失败 → 降级为手动检查（Glob + Read frontmatter），标注 "⚠️ 降级: 验证脚本不可用"
 
@@ -106,7 +106,7 @@
 ✅ Checkpoint: `Step 6 完成: 实战检查 X/N 项通过`
 
 **Step 7: 安全扫描**
-- **Step 7a**: 运行 validate-security.py 获取静态扫描结果（`python3 {checker-root}/scripts/validate-security.py --path {目标路径}`）
+- **Step 7a**: 运行 validate-security.py 获取静态扫描结果（`python3 core/scripts/validate-security.py --path {目标路径}`）
 - **Step 7b**: 对 Critical/High 级发现加载 `security-guide.md` 进行语义分析
 - **Step 7c**: 检查上下文豁免（功能声明匹配 → 降级为建议）
 - **Step 7d**: 应用硬上限规则（未豁免的 Critical → 总分钳位，见 quality-standards.md #6-#11）

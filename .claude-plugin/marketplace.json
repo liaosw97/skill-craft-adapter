@@ -4,7 +4,7 @@
     "name": "AiTools"
   },
   "metadata": {
-    "description": "Claude Code Skill quality evaluation plugin — 8-module weighted scoring framework",
+    "description": "Evaluates, fixes, creates, and audits Claude Code Skills using weighted 8-module quality framework. Do not use for general code review or non-Skill documentation.",
     "version": "1.0.0"
   },
   "plugins": [

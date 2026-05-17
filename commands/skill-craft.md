@@ -11,10 +11,10 @@ argument-hint: <mode> <path>
 
 按优先级匹配（fix > check > create > audit）：
 
-1. **fix 模式** — 匹配关键词: "修复"、"fix"、"修"、"调整"、"更新"、"repair"
+1. **fix 模式** — 匹配关键词: "修复"、"fix"、"修"、"调整"、"更新"、"repair"、"改进"
    → 输出: "请运行 `/skill-fix <path>` 进行评估并修复"
 
-2. **check 模式** — 匹配关键词: "评估"、"检查"、"check"、"审计单个"、"review"、"打分"、"评估"、"好不好"、"质量"
+2. **check 模式** — 匹配关键词: "评估"、"检查"、"check"、"审计单个"、"review"、"打分"、"好不好"、"质量"、"evaluate"、"grade"
    → 输出: "请运行 `/skill-check <path>` 进行质量评估"
 
 3. **create 模式** — 匹配关键词: "创建"、"新建"、"create"、"生成"、"generate"

@@ -1,6 +1,6 @@
 # Skill Craft Adapter
 
-Claude Code Skill 质量评估插件——基于加权评分框架（8 模块检查、7 反模式评估、3 完备性原则、决策门），用于评估、修复、创建和审计 Claude Code Skill。
+Claude Code Skill 质量评估插件——基于加权评分框架（8 模块检查、7 反模式评估、3 完整性原则、决策门），用于评估、修复、创建和审计 Claude Code Skill。
 
 本插件基于 [skill-craft](https://github.com/3stoneBrother/skill-craft) 项目改编，转为标准 Claude Code 插件格式。
 
@@ -107,7 +107,7 @@ CLI 仅使用 Python 标准库，无需 `pip install`。
 |------|------|------|
 | 8 模块检查 | 55% | 触发条件、行为规则、工具优先级等 8 个必含模块 |
 | 7 反模式评估 | 20% | 检测常见 Skill 设计缺陷 |
-| 3 完备性原则 | 15% | 覆盖度、一致性、可操作性 |
+| 3 完整性原则 | 15% | 覆盖度、一致性、可操作性 |
 | 决策门 | 10% | 关键决策点检查 |
 
 ## 验证脚本
@@ -118,6 +118,9 @@ python core/scripts/validate-metadata.py --path /path/to/skill
 
 # 验证 Skill 结构（8 模块、行数预算、引用完整性）
 python core/scripts/validate-structure.py --path /path/to/skill
+
+# 安全扫描（凭证窃取、数据外泄、后门、命令注入等 Critical 级模式检测）
+python core/scripts/validate-security.py --path /path/to/skill
 ```
 
 ## 致谢

@@ -56,8 +56,8 @@
 ✅ Checkpoint: `Step 4 完成: 自检 X/Y 项通过`
 
 **Step 5: 自动化验证**
-- 运行 `python3 {checker-root}/scripts/validate-metadata.py --path {skill-dir}` 验证 name + description
-- 运行 `python3 {checker-root}/scripts/validate-structure.py --path {skill-dir}` 验证目录结构 + 8 模块存在性
+- 运行 `python3 core/scripts/validate-metadata.py --path {skill-dir}` 验证 name + description
+- 运行 `python3 core/scripts/validate-structure.py --path {skill-dir}` 验证目录结构 + 8 模块存在性
 - 两个脚本均 PASS → 继续；有 ERROR → 修正后重跑
 
 失败降级:

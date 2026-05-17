@@ -6,10 +6,10 @@
 
 **Step 1: 结构扫描 + 自动化 smoke check**
 - Glob 目标目录，列出所有文件
-- 先定位当前 `skill-craft` 的根目录（本 `SKILL.md` 所在目录，记为 `{checker-root}`）
-- 执行当前 Skill 自带验证脚本（并行，脚本路径相对 `{checker-root}`，不是相对目标 Skill）：
-  - `python3 {checker-root}/scripts/validate-metadata.py --path {目标路径}` → 元数据规范检查
-  - `python3 {checker-root}/scripts/validate-structure.py --path {目标路径}` → 结构 smoke check：模块存在性 + 行数预算 + 目录结构
+- 定位 adapter 共享脚本目录 `core/scripts/`（相对于 adapter 根目录，与 SKILL.md 中 `core/references/` 同级）
+- 执行验证脚本（并行，脚本路径使用 `core/scripts/`，不是相对目标 Skill）：
+  - `python3 core/scripts/validate-metadata.py --path {目标路径}` → 元数据规范检查
+  - `python3 core/scripts/validate-structure.py --path {目标路径}` → 结构 smoke check：模块存在性 + 行数预算 + 目录结构
 - 脚本 stderr 中的错误/警告直接纳入问题清单
 - 脚本不可用 → 降级为手动检查，标注 "⚠️ 降级: 验证脚本不可用"
 
