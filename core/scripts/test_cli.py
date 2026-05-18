@@ -9,7 +9,7 @@ import tempfile
 
 SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "skill-craft.py")
 SCRIPT_DIR = os.path.dirname(SCRIPT)
-SKILL_TARGET = os.environ.get("SKILL_TARGET", os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "..", "skill-craft")))
+SKILL_TARGET = os.environ.get("SKILL_TARGET", os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "skills", "skill-check")))
 
 passed = 0
 failed = 0

@@ -16,7 +16,7 @@ SKILLS_DIR = os.path.join(BASE_DIR, "skills")
 COMMANDS_DIR = os.path.join(BASE_DIR, "commands")
 PLUGIN_JSON = os.path.join(BASE_DIR, ".claude-plugin", "plugin.json")
 CLI_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "skill-craft.py")
-SKILL_TARGET = os.environ.get("SKILL_TARGET", os.path.normpath(os.path.join(BASE_DIR, "..", "skill-craft")))
+SKILL_TARGET = os.environ.get("SKILL_TARGET", os.path.join(BASE_DIR, "skills", "skill-check"))
 
 passed = 0
 failed = 0

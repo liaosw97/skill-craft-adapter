@@ -80,7 +80,7 @@ tools:
 
 ## 执行流程 → Read `core/references/create-guide.md`
 
-- 6 步: 明确需求 → 规模判断 → 生成文件 → 自检清单 → **自动化验证**(validate-metadata + validate-structure) → 创建报告
+- 6 步: 明确需求 → 规模判断 → 生成文件 → 自检清单 → **自动化验证**(validate-metadata + validate-structure + validate-security) → 创建报告
 - 规模适配:
   - 轻量(模块1+2+4+8)
   - 中等(1-5+8)
@@ -113,7 +113,7 @@ tools:
 
 1. **触发条件冲突**：创建前必须扫描现有 Skill 的触发条件，避免路由冲突
 2. **规模判断影响模块数**：轻量 Skill 不需要全部 8 个模块，过度设计会降低可用性
-3. **自动化验证是强制步骤**：生成后必须运行 validate-metadata.py 和 validate-structure.py
+3. **自动化验证是强制步骤**：生成后必须运行 validate-metadata.py、validate-structure.py 和 validate-security.py
 
 ---
 

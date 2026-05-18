@@ -12,7 +12,7 @@ python test_runtime.py
 python test_cli.py
 python test_security.py
 
-# 使用环境变量指定测试目标（默认为 ../skill-craft）
+# 使用环境变量指定测试目标（默认为 skills/skill-check）
 SKILL_TARGET=/path/to/skill python test_runtime.py
 SKILL_TARGET=/path/to/skill python test_cli.py
 ```
