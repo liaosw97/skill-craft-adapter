@@ -56,10 +56,27 @@
 
 ✅ Checkpoint: `Step 2 完成: N/5 个检查清单已加载`
 
+**Step 2.5: 加载用户参考**
+- 解析 $ARGUMENTS 中的 --ref 参数
+- 按 `openspec/changes/2026-05-22-reference-input-support-v2/specs/ref-loading.md` 规则识别类型并加载：
+  - `spec:<name>` → 映射为 `openspec/specs/<name>.md` 并读取
+  - `https?://...` → WebFetch 抓取
+  - 其他 → 本地文件路径，Read 读取
+- 检查内容大小限制（单参考 ≤10000 字符，总量 ≤30000 字符）
+- 将成功加载的参考注入评估上下文
+- 失败时警告 + 跳过，不阻断评估
+
+失败降级:
+- 参考 → 警告 + 跳过，不阻断评估
+- 所有参考都失败 → 仅使用内置标准继续评估
+
+✅ Checkpoint: `Step 2.5 完成: 用户参考 N 个加载成功, M 个跳过`
+
 **Step 3: 8 模块深度评估**
 - Read 目标 Skill 的全部文件（SKILL.md + references/ + scripts/）
 - 按本文件下方"Quality Framework"部分的检查项逐模块评估
 - 每模块: 分数(0-2) + 证据引用 + 具体问题
+- 用户参考覆盖标注：当用户参考覆盖某评估维度时，评分以用户参考为准
 
 完成性要求:
 - 输入: 8 个模块检查清单

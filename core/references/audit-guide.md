@@ -23,6 +23,24 @@
 
 ✅ Checkpoint: `Step 2 完成: 审计标准已加载, 9 项必查`
 
+**Step 2.5: 加载用户参考**
+- 解析 $ARGUMENTS 中的 --ref 参数
+- 按 `openspec/changes/2026-05-22-reference-input-support-v2/specs/ref-loading.md` 规则识别类型并加载：
+  - `spec:<name>` → 映射为 `openspec/specs/<name>.md` 并读取
+  - `https?://...` → WebFetch 抓取
+  - 其他 → 本地文件路径，Read 读取
+- 检查内容大小限制（单参考 ≤10000 字符，总量 ≤30000 字符）
+- 将成功加载的参考注入审计上下文
+- 失败时警告 + 跳过，不阻断审计
+
+**跨参考一致性检查**: 检查多个 Skill 的用户参考是否一致（如有）。
+
+失败降级:
+- 参考 → 警告 + 跳过，不阻断审计
+- 所有参考都失败 → 仅使用内置标准继续审计
+
+✅ Checkpoint: `Step 2.5 完成: 用户参考 N 个加载成功, M 个跳过`
+
 **Step 3: 路由与分工审计**
 - 对比所有 Skill 的 description + 触发条件 + DO NOT trigger
 - 检查路由边界是否互斥
